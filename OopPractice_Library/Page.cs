@@ -17,36 +17,39 @@ namespace OopPractice_Library
 		public bool ActivePage { get; set; }
 
         // Methods
-        public bool SetActivePage()
+        
+        public Page TurnPage(Book book)
         {
-            return true;
+            var activePageNumber = GetActivePageNumber(book);
+            if (activePageNumber < book.Page.Count()+1)
+            {
+                return GetNextPage(book, activePageNumber);
+            }
+            return book.Page.First();
         }
-        /*
-        public IEnumerable<Page> GetAllPagesByBookId(int bookId)
+        private int GetActivePageNumber(Book book)
         {
-            try
-            {
-                var filteredBookPages = pageDataSet.Where(x => x.BookId == bookId);
-                if (filteredBookPages != null)
-                {
-                    activePageNumber = GetActivePage(filteredBookPages);
-                }
-                filteredBookPages = filteredBookPages.Where(x => x.Number >= activePageNumber).OrderBy(x => x.Number);
-                return filteredBookPages;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(pageNotFoundMessage, ex);
-            }
-            
+            return book.Page.Where(x => x.ActivePage).Select(y => y.Number).First();
+        }
+        private Page GetNextPage(Book book, int activePageNumber)
+        {
+            var nextPage = book.Page.Where(x => x.Number == activePageNumber + 1).First();
+            DeactivatePreviousPage(book, activePageNumber);
+            return SetActivePage(nextPage);
+        }
+        private void DeactivatePreviousPage(Book book, int previousPageNumber)
+        {
+            var previousPage = book.Page.Where(x => x.ActivePage == true).First();
+            previousPage.ActivePage = false;
+            Console.WriteLine($"Page {previousPage.Number} is being turned");
+        }
+        private Page SetActivePage(Page page)
+        {
+            page.ActivePage = true;
+            return page;
         }
 
-        private int GetActivePage(IEnumerable<Page> bookPages)
-        {
-            return bookPages.Where(x => x.ActivePage == true).Select(y => y.Number).First();
-        }
-        */
-        
+
     }
 
 	

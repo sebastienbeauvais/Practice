@@ -21,14 +21,14 @@ namespace OopPractice_Library.Data
 		{
 			IEnumerable<Book> bookDataSet = new List<Book>
 			{
-				new Book
+				new Book(pages.First())
 				{
 					Title = "The First Book In The Collection",
 					Id = 1,
 					IsActiveBook = false,
 					Page = pages.Where(x => x.BookId == 1) // This sucks
 				},
-				new Book
+				new Book(pages.First())
 				{
 					Title = "The Lord of The Rings",
 					Id = 2,

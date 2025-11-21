@@ -3,11 +3,12 @@ namespace OopPractice_Library
 {
 	public class Book
 	{
-		//private readonly Page _page;
+		private Page _page;
 		private IEnumerable<Page> bookPagesFromActivePage = new List<Page>();
 
-		public Book()
+		public Book(Page page)
 		{
+			page = _page;
 		}
 
 		// Attributes
@@ -17,11 +18,21 @@ namespace OopPractice_Library
 		public bool IsActiveBook { get; set; }
 
 		// Methods
-		/*
-		public void SetActive()
+		public void SetActiveBook(Book selectedBook)
 		{
-			IsActiveBook = true;
+			selectedBook.IsActiveBook = true;
+			Console.WriteLine($"Book {selectedBook.Title} is now set to the active book");
 		}
+		public void SetInActiveBook(Book currentActiveBook)
+		{
+			currentActiveBook.IsActiveBook = false;
+			Console.WriteLine($"Book {currentActiveBook.Title} is no longer set to the active book");
+		}
+		public Page TurnPage(Book activeBook)
+		{
+			return _page.TurnPage(activeBook);
+		}
+		/*
 		public IEnumerable<Page> GetBookPages(int bookId)
 		{
             return bookPagesFromActivePage = _page.GetAllPagesByBookId(Id);

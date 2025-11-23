@@ -1,5 +1,7 @@
 ﻿using System;
-namespace OopPractice_Library.Data
+using OopPractice_Library.Data;
+
+namespace OopPractice_Library
 {
 	public class Library
 	{
@@ -11,6 +13,13 @@ namespace OopPractice_Library.Data
 			_bookDataSet = bookDataSet;
 			_book = book;
 		}
+		public void LaunchApp()
+		{
+			Console.WriteLine("Opening your library....");
+			var bookCollection = InitializeLibraryBooks();
+
+			TestLogic(bookCollection);
+        }
 		public IEnumerable<Book> InitializeLibraryBooks()
 		{
 			return _bookDataSet.InitializeBookDataSet();
@@ -40,7 +49,9 @@ namespace OopPractice_Library.Data
 		}
 		public Page TurnPage(Book activeBook)
 		{
-			return _book.TurnPage(activeBook);
+			var newPage = _book.TurnPage(activeBook);
+			Console.WriteLine(newPage.Content.ToString());
+			return newPage;
 		}
 
         private void ClearCurrentActiveBook(Book currentActiveBook)
@@ -50,6 +61,21 @@ namespace OopPractice_Library.Data
 				_book.SetInActiveBook(currentActiveBook);
 			}
 		}
+		private void TestLogic(IEnumerable<Book> libraryCollection)
+		{
+            //Testing setting an active book
+            var bookId = 1;
+            var bookId2 = 2;
+
+            PrintLibraryToScreen(libraryCollection);
+
+            SetActiveBook(libraryCollection, bookId);
+            var activeBook = SetActiveBook(libraryCollection, bookId2);
+
+            var activePage = OpenToActiveBookPage(activeBook);
+            Console.WriteLine($"{activePage.Content.ToString()}");
+            TurnPage(activeBook);
+        }
 	}
 }
 

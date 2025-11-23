@@ -4,7 +4,7 @@ namespace OopPractice_Library
     public class Page
     {
         //Pass a list of pages we can then filter on by book Id and active page
-        private string pageNotFoundMessage = "Sorry, you dont have an active page for this book.";
+        private const string pageNotFoundMessage = "Sorry, you dont have an active page for this book.";
         private int activePageNumber = -1;
 
         public Page() { }

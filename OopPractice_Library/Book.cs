@@ -3,12 +3,10 @@ namespace OopPractice_Library
 {
 	public class Book
 	{
-		private Page _page;
-		private IEnumerable<Page> bookPagesFromActivePage = new List<Page>();
-
+		private readonly Page _page;
 		public Book(Page page)
 		{
-			page = _page;
+			_page = page;
 		}
 
 		// Attributes
